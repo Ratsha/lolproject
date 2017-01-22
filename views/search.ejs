@@ -1,0 +1,17 @@
+<% layout('layout') -%>
+
+<% block('js').append('<script src="/javascripts/search.js"></script>') %>
+
+<h1><%= summoner %><h1>
+
+<h1>Your are in: <%= performance.status %></h1>
+
+<h1>Your recent placed wards: 
+<% performance.wardsPlaced.forEach(function(wards){ %>
+	<%- wards %>
+<% }); %>
+</h1>
+
+<div>Updates each 5 seconds:
+	<span id="secondUpdate"></span>
+</div>

@@ -1,9 +1,10 @@
 var express = require('express')
 var router = express.Router()
 
-/* GET home page. */
+/* GET users listing. */
 router.get('/', function(req, res, next) {
-	res.render('index', {})
+	var date = new Date()
+	res.send( date.getSeconds().toString() )
 });
 
 module.exports = router
