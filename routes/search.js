@@ -24,7 +24,6 @@ router.get('/:summoner', function(req, res, next) {
     	"wardsPlaced": [
     		5,
     		3,
-    		1,
     		7,
     		3,
     		2
