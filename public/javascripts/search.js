@@ -4,9 +4,9 @@ $('document').ready(function(){
 	secondUpdater()
 
 	// Update every 5 seconds
-	window.setInterval(function() {
+	/*window.setInterval(function() {
 		secondUpdater()
-	}, 5000)
+	}, 5000)*/
 
 })
 

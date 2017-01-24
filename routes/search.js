@@ -1,40 +1,42 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var fs = require('fs')
+var riot = require('../app/riot.js')
+var https = require('https')
+var router = express.Router()
 
-/* GET home page. */
+
+/* Search for a summoner */
 router.get('/:summoner', function(req, res, next) {
-	var summoner = req.params.summoner
+	var summonerName = req.params.summoner
 
-	// Sent to String
-	summoner = summoner.toString()
-
+	var adam = "INITIAL"
 	// Santize summoner name
-	if (summoner == "")
+	if (summonerName == "")
 	{
 		var err = new Error('Summoner name is empty')
 		err.status = 500
 		next(err)
 	}
 
-    // Grap some data
-    performance = {
-    	"status": "Platinum",
-    	"percentToMaster": 83.4,
-    	"lastUpdated": 1484948485,
-    	"wardsPlaced": [
-    		5,
-    		3,
-    		1,
-    		7,
-    		3,
-    		2
-    	]
-    }
+	summonerId = riot.getSummonerId(summonerName)
+	performance = {
+		"status": "Platinum",
+		"percentToMaster": 83.4,
+		"lastUpdated": 1484948485,
+		"wardsPlaced": [
+			5,
+			3,
+			1,
+			7,
+			3,
+			2
+		]
+	}
 	
 	res.render('search', {
-							summoner: summoner,
+							summoner: summonerId,
 							performance: performance
 						})
-});
+})
 
-module.exports = router;
+module.exports = router
