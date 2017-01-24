@@ -32,6 +32,7 @@ router.get('/:summoner', function(req, res, next) {
 			2
 		]
 	}
+
 	
 	res.render('search', {
 							summoner: summonerId,
