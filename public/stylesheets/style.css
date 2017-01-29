@@ -1,5 +1,5 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  //font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .aatroxImage {
@@ -7,4 +7,18 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	height: 100px;
+}
+
+.primary-background-color {
+	background-color: #5882FA;
+}
+
+.primary-color {
+	color: #5882FA;
+}
+
+.menu {
+	background-color: #58ACFA;
+	padding-top: 30px;
+	padding-bottom: 20px;
 }

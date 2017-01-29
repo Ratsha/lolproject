@@ -2,15 +2,37 @@
 <html>
 	<head>
 		<title>LoL Project</title>
+		
+		<link rel='stylesheet' href='/stylesheets/kube.css' />
+		<link rel='stylesheet' href='/stylesheets/font-awesome.min.css' />
 		<link rel='stylesheet' href='/stylesheets/style.css' />
 		<%- block('css').toString() %>
 	</head>
 	<body>
-		<img class="aatroxImage" src="/images/Aatrox_0.jpg">
+		<div class="row">
+			<div class="col col-12 text-center menu">
+					<h1 class="title"><i class="fa fa-graduation-cap"></i> LEAGUE OF IMPROVEMENTS</h1>
+					<div class="row">
+						<div class="col col-3 push-center">
+							<form class="form" id="summonerSearch">
+								<div class="form-item">
+									<div class="append">
+										<input id="summonerSearchName" type="text" placeholder="Search Summoner">
+										<button class="button">GO</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<%- body -%>
 
 		<script src="/javascripts/jquery-3.1.1.min.js"></script>
+		<script src="/javascripts/kube.js"></script>
+		<script src="/javascripts/layout.js"></script>
 		<%- block('js').toString() %>
 	</body>
 </html>
