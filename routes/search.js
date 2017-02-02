@@ -1,6 +1,7 @@
 var express = require('express')
 var fs = require('fs')
 var riot = require('../app/riot.js')
+var matchlist = require('../app/matchlist.js')
 var https = require('https')
 var router = express.Router()
 
@@ -19,6 +20,11 @@ router.get('/:summoner', function(req, res, next) {
 	}
 
 	summonerId = riot.getSummonerId(summonerName)
+	matchListArray = matchlist.getMatchList(summonerId)
+
+	console.log("random")
+	console.log(matchListArray)
+
 	performance = {
 		"status": "Platinum",
 		"percentToMaster": 83.4,
@@ -36,7 +42,8 @@ router.get('/:summoner', function(req, res, next) {
 	
 	res.render('search', {
 							summoner: summonerId,
-							performance: performance
+							performance: performance,
+							matchListArray: matchListArray
 						})
 })
 

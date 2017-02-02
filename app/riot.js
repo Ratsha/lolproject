@@ -51,3 +51,4 @@ function getSummonerId(summonerName) {
 
 
 module.exports.getSummonerId = getSummonerId;
+module.exports.callApi = callApi;
