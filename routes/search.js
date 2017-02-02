@@ -8,9 +8,9 @@ var router = express.Router()
 
 /* Search for a summoner */
 router.get('/:summoner', function(req, res, next) {
+
 	var summonerName = req.params.summoner
 
-	var adam = "INITIAL"
 	// Santize summoner name
 	if (summonerName == "")
 	{
@@ -18,12 +18,6 @@ router.get('/:summoner', function(req, res, next) {
 		err.status = 500
 		next(err)
 	}
-
-	summonerId = riot.getSummonerId(summonerName)
-	matchListArray = matchlist.getMatchList(summonerId)
-
-	console.log("random")
-	console.log(matchListArray)
 
 	performance = {
 		"status": "Platinum",
@@ -39,12 +33,18 @@ router.get('/:summoner', function(req, res, next) {
 		]
 	}
 
-	
-	res.render('search', {
-							summoner: summonerId,
-							performance: performance,
-							matchListArray: matchListArray
-						})
+	riot.getSummonerId(summonerName, function(summonerId) {
+		console.log("SummonerID: "+summonerId)
+		matchlist.getMatchList(summonerId, function(matchList) {
+			console.log("MatchList[0]: "+matchList[0])
+			res.render('search', {
+				summonerId: summonerId,
+				performance: performance,
+				matchList: matchList
+			})
+		})
+	})
+
 })
 
 module.exports = router

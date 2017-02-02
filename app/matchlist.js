@@ -4,7 +4,7 @@ var https = require('https')
 var riot = require('../app/riot.js')
 
 
-function getMatchList(summonerID) {
+function getMatchList(summonerID, matchList) {
 	riot.callApi('/api/lol/euw/v2.2/matchlist/by-summoner/'+summonerID, function(response) {
 		response = JSON.parse(response)
 		var i = 0
@@ -13,17 +13,14 @@ function getMatchList(summonerID) {
 
 		for(var id in response.matches){
 			individualMatch = response.matches[id]
-			console.log(id, individualMatch.matchId)
-			matchArray[i] = individualMatch.matchId
+			matchArray.push(individualMatch.matchId)
 			i++
 			if (i==10){
 				break
 			}
 		}
 
-		console.log("---------------")
-
-		return matchArray[0]
+		matchList(matchArray)
 	})
 }
 
