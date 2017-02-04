@@ -4,15 +4,28 @@ var https = require('https')
 
 
 function callApi(url, response) {
+	// Identify whether url contains full url or partial
+	if ( url.indexOf('http') > -1 ) {
+		var urlModule = require('url');
+		host = urlModule.parse(url).hostname
+	} else {
+		host = 'euw.api.pvp.net'
+	}
 
 	var env = fs.readFileSync('.env').toString()
 	env = JSON.parse(env)
-
-	console.log("RiotAPI: "+url)
+	// Identify whether string parameter is set
+	if ( url.indexOf('?') > -1 ) {
+		urlEnding = '&api_key='+env.apikey
+	} else {
+		urlEnding = '?api_key='+env.apikey
+	}
+	
+	console.log("RiotAPI: "+host+url)
 
 	return https.get({
-		host: 'euw.api.pvp.net',
-		path: url+'?api_key='+env.apikey
+		host: host,
+		path: url+urlEnding
 	}, function(res) {
 		// Continuously update stream with data
 		var body = '';
