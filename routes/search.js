@@ -1,7 +1,6 @@
 var express = require('express')
 var fs = require('fs')
 var riot = require('../app/riot.js')
-var matchlist = require('../app/matchlist.js')
 var https = require('https')
 var router = express.Router()
 
@@ -33,15 +32,11 @@ router.get('/:summoner', function(req, res, next) {
 		]
 	}
 
+	
 	riot.getSummonerId(summonerName, function(summonerId) {
-		console.log("SummonerID: "+summonerId)
-		matchlist.getMatchList(summonerId, function(matchList) {
-			console.log("MatchList[0]: "+matchList[0])
-			res.render('search', {
-				summonerId: summonerId,
-				performance: performance,
-				matchList: matchList
-			})
+		res.render('search', {
+			summonerId: summonerId,
+			performance: performance
 		})
 	})
 

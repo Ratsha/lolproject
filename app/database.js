@@ -1,6 +1,5 @@
-var mysql = require('mysql');
+var mysql = require('mysql')
 var fs = require('fs')
-var riot = require('../app/riot.js')
 
 var env = fs.readFileSync('.env').toString()
 env = JSON.parse(env)
@@ -12,6 +11,14 @@ var DB = mysql.createConnection({
 	database: env.db.name
 })
 
+DB.connect(function(err){
+	if(err) {
+		console.log("Error connecting to database", err);    
+	}
+})
+
+module.exports = DB
+/*
 DB.connect(function(err){
 	if(err) {
 		console.log("Error connecting to database", err);    
@@ -33,5 +40,5 @@ DB.connect(function(err){
 			})
 		}
 	})
-
 })
+*/

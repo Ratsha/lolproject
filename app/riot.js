@@ -1,4 +1,5 @@
 var express = require('express')
+var DB = require('../app/database')
 var fs = require('fs')
 var https = require('https')
 
@@ -39,7 +40,42 @@ function callApi(url, response) {
 }
 
 function getSummonerId(summonerName, summonerId) {
-	var file = fs.readFileSync('data/summonerNames2Id.json', 'utf8');
+
+	DB.query('SELECT summonerId FROM summoners WHERE name = ?', [summonerName], function(err, row, fields) {
+
+		if (row.length > 0) {
+			// Return id from database
+			console.log("Return from database")
+			summonerId(row[0].summonerId)
+		} else {
+			// Fetch id from api
+			callApi('/api/lol/euw/v1.4/summoner/by-name/'+summonerName, function(response) {
+				response = JSON.parse(response)
+				var id = response[summonerName]['id']
+				var name = response[summonerName]['name']
+
+				// Insert into database
+				summoner = {
+					summonerId: id,
+					name: name,
+					lastUpdated: (new Date).getTime()
+				}
+				DB.query('INSERT INTO summoners SET ?', summoner, function(err, result) {
+					if (err) {
+						console.log("Error inserting summoner into database", err); 
+					}
+				})
+
+				// Return summonerid
+				summonerId(id)
+
+			})
+		}
+
+	})
+
+	
+	/*var file = fs.readFileSync('data/summonerNames2Id.json', 'utf8');
 	summoners = JSON.parse(file)
 	if (summoners.hasOwnProperty(summonerName)) {
 		console.log("Returned summonerId from file")
@@ -59,6 +95,7 @@ function getSummonerId(summonerName, summonerId) {
 			console.log("Returned summonerId from API")
 		})
 	}
+	*/
 
 }
 
